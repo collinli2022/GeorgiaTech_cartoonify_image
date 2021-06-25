@@ -91,7 +91,8 @@ def upload_file():
             filename = secure_filename(file.filename)
             print(type(file))
             inputed_image = Image.open(file)
-            adjusted_image = better_cartoonify(inputed_image.convert('RGB'))
+            # adjusted_image = better_cartoonify(inputed_image.convert('RGB'))
+            adjusted_image = inputed_image
             data = io.BytesIO()
             adjusted_image.save(data, "JPEG")
             encoded_img_data = base64.b64encode(data.getvalue())
