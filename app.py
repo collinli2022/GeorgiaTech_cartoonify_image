@@ -6,15 +6,15 @@ import io
 import os
 from werkzeug.utils import secure_filename
 
+import cv2
+import numpy as np
+
 # input a image path and it will output a cartoonified image
-def better_cartoonify(image_path, numDownSamples = 2, numBilateralFilters = 15, resize_shape=(1920,1080)):
+def better_cartoonify(numpy_arr_image, numDownSamples = 2, numBilateralFilters = 15, resize_shape=(1920,1080)):
     ## Get image ##
-    orig = cv2.imread(image_path) 
-    orig = cv2.cvtColor(orig, cv2.COLOR_BGR2RGB)
+    orig = np.array(numpy_arr_image) 
+    #orig = cv2.cvtColor(orig, cv2.COLOR_BGR2RGB)
     images = {}
-    if orig is None:
-        print("Path incorrect, no image found")
-        sys.exit()
 
     ## Original ##
     ## Resize to resize_shape ##
@@ -62,9 +62,7 @@ def better_cartoonify(image_path, numDownSamples = 2, numBilateralFilters = 15, 
     images['combined'] = cv2.resize(cartoonImage, resize_shape)
 
     im = Image.fromarray(cartoonImage)
-    new_path = image_path.replace('.jpg', '_cartoon.jpg')
-    im.save(new_path)
-    return new_path
+    return im
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -93,6 +91,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             print(type(file))
             inputed_image = Image.open(file)
+            adjusted_image = better_cartoonify(inputed_image.convert('RGB'))
             data = io.BytesIO()
             inputed_image.save(data, "JPEG")
             encoded_img_data = base64.b64encode(data.getvalue())
@@ -119,3 +118,4 @@ def hello_world():
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
+    sys.stdout.flush()
