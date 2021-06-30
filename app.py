@@ -93,7 +93,7 @@ def upload_file():
             inputed_image = Image.open(file)
             adjusted_image = better_cartoonify(inputed_image.convert('RGB'))
             data = io.BytesIO()
-            inputed_image.save(data, "JPEG")
+            adjusted_image.save(data, "JPEG")
             encoded_img_data = base64.b64encode(data.getvalue())
             # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template("index.html", img_data=encoded_img_data.decode('utf-8'))
