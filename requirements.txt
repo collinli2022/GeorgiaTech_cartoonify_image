@@ -15,7 +15,3 @@ Werkzeug==2.0.1
 zipp==3.4.1
 zope.event==4.5.0
 zope.interface==5.4.0
-libsm6
-libxrender1
-libfontconfig1
-libice6
