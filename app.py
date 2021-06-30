@@ -16,7 +16,6 @@ import flask
 import cv2 # for image processing
 import numpy as np # to store image
 import sys
-import requests
 
 # input a image path and it will output a cartoonified image
 def better_cartoonify(image_path, numDownSamples = 2, numBilateralFilters = 15, resize_shape=(1920,1080)):
