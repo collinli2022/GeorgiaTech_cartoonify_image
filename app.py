@@ -15,7 +15,6 @@ import flask
 
 import cv2 # for image processing
 import numpy as np # to store image
-import matplotlib.pyplot as plt
 import sys
 import requests
 
