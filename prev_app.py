@@ -15,7 +15,25 @@ import flask
 
 import cv2 # for image processing
 import numpy as np # to store image
+import matplotlib.pyplot as plt
 import sys
+import requests
+
+'''
+TODO:
+
+- better comments
+- make sure vars are specificly label (like path and message)
+- reduce blur
+- don't hard code paths or anything
+
+
+- dilation
+- erosion 
+- consistant black lines (to just the outline [edge detection])
+- opencv opening kernel 
+
+'''
 
 # input a image path and it will output a cartoonified image
 def better_cartoonify(image_path, numDownSamples = 2, numBilateralFilters = 15, resize_shape=(1920,1080)):
