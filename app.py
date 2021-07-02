@@ -82,7 +82,7 @@ def better_cartoonify(image_path, numDownSamples = 2, numBilateralFilters = 15, 
 ## Constants ##
 DATA_DIR = 'tmp'
 KEEP_ALIVE_DELAY = 25
-MAX_IMAGE_SIZE = 1600, 1200
+MAX_IMAGE_SIZE = 1200, 800
 MAX_IMAGES = 10
 MAX_DURATION = 300
 
@@ -177,12 +177,13 @@ def post():
     try:
         ## making program more robust by not hard coding anything ##
         saving_success, cartoonified_image_path = save_normalized_image(target, flask.request.data)
+        cartoonified_image_path = '.\\{}'.format(cartoonified_image_path)
         if saving_success:
             message = json.dumps({'src': cartoonified_image_path, 'ip_addr': safe_addr(flask.request.access_route[0])})
             broadcast(message)  # Notify subscribers of completion
     except Exception as exception:  # Output errors
         return '{}'.format(exception)
-    return 'success'
+    return 'saved to {}'.format(cartoonified_image_path)
 
 
 @app.route('/stream')
